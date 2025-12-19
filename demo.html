@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Demos — WEMIR SOLUTIONS</title>
+  <meta name="description" content="Live interactive demos: Skills Matrix, Customer Journey Flow, Cloud Painter, and Virtual Drum Kit." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html" aria-label="WEMIR SOLUTIONS Home">
+        <span class="brand__mark" aria-hidden="true">⟡</span>
+        <span class="brand__text">WEMIR <em>SOLUTIONS</em></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="pricing.html">Pricing</a>
+        <a href="demos.html" aria-current="page">Demos</a>
+        <a href="intake.html" class="btn btn--ghost">Intake</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="iconbtn" id="toggleTheme" type="button" aria-pressed="false" title="Toggle theme">◐</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="pageHero">
+      <div class="container">
+        <h1>Interactive demos</h1>
+        <p class="muted">
+          These are lightweight examples of the kind of tools and experiences WEMIR SOLUTIONS can integrate into a website.
+          They run entirely in the browser—perfect for GitHub Pages.
+        </p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="grid demos">
+
+          <!-- Demo 1: Employee Skills Matrix -->
+          <article class="card demo">
+            <div class="demo__head">
+              <h2>Employee Skills Matrix</h2>
+              <p class="muted">Track skills coverage with adjustable proficiency levels.</p>
+            </div>
+
+            <div class="skillsApp" id="skillsApp">
+              <div class="skillsApp__bar">
+                <button class="btn btn--ghost" id="addSkill" type="button">+ Skill</button>
+                <button class="btn btn--ghost" id="addEmp" type="button">+ Employee</button>
+                <button class="btn btn--ghost" id="resetSkills" type="button">Reset</button>
+              </div>
+              <div class="tableWrap">
+                <table class="table" id="skillsTable" aria-label="Skills matrix grid"></table>
+              </div>
+              <p class="note">Click cells to cycle proficiency: 0→1→2→3.</p>
+            </div>
+          </article>
+
+          <!-- Demo 2: Customer Journey Flow -->
+          <article class="card demo">
+            <div class="demo__head">
+              <h2>Customer Journey Flow</h2>
+              <p class="muted">Edit stages and drag cards to map the journey.</p>
+            </div>
+
+            <div class="journey" id="journey">
+              <div class="journey__bar">
+                <button class="btn btn--ghost" id="addStage" type="button">+ Stage</button>
+                <button class="btn btn--ghost" id="resetJourney" type="button">Reset</button>
+              </div>
+              <div class="journey__lane" id="journeyLane" aria-label="Journey stages lane"></div>
+              <p class="note">Drag stages. Click name to edit. Use this pattern for real funnels.</p>
+            </div>
+          </article>
+
+          <!-- Demo 3: Cloud Painter -->
+          <article class="card demo">
+            <div class="demo__head">
+              <h2>Cloud Painter</h2>
+              <p class="muted">Paint clouds, watch them drift, save your sky.</p>
+            </div>
+
+            <div class="painter">
+              <div class="painter__bar">
+                <label class="chip">
+                  Brush
+                  <select id="brush">
+                    <option value="puff">Puff</option>
+                    <option value="swirl">Swirl</option>
+                    <option value="flat">Flat</option>
+                  </select>
+                </label>
+                <label class="chip">
+                  Size
+                  <input id="bsize" type="range" min="8" max="60" value="26" />
+                </label>
+                <button class="btn btn--ghost" id="clearSky" type="button">Clear</button>
+                <button class="btn btn--primary" id="saveSky" type="button">Save PNG</button>
+              </div>
+
+              <canvas id="sky" class="canvas canvas--sky" width="900" height="420" aria-label="Cloud painter canvas"></canvas>
+              <p class="note">Tip: Draw with mouse/touch. Clouds drift automatically.</p>
+            </div>
+          </article>
+
+          <!-- Demo 4: Virtual Drum Kit -->
+          <article class="card demo">
+            <div class="demo__head">
+              <h2>Virtual Drum Kit</h2>
+              <p class="muted">Low-latency pads with record + playback (keyboard supported).</p>
+            </div>
+
+            <div class="drum" id="drum">
+              <div class="drum__bar">
+                <button class="btn btn--ghost" id="rec" type="button">Record</button>
+                <button class="btn btn--ghost" id="play" type="button">Play</button>
+                <button class="btn btn--ghost" id="clearRec" type="button">Clear</button>
+                <span class="muted" id="drumHint">Keys: A S D F J K L ;</span>
+              </div>
+
+              <div class="drum__grid" id="pads" aria-label="Drum pads"></div>
+            </div>
+          </article>
+
+        </div>
+
+        <div class="callout">
+          <h3>Want these kinds of tools embedded into your real site?</h3>
+          <p class="muted">
+            That’s exactly what WEMIR SOLUTIONS does—then we connect them to your forms, CRM, follow-ups, and analytics.
+          </p>
+          <a class="btn btn--primary" href="intake.html">Start intake</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__grid">
+        <div class="muted">© <span id="year"></span> WEMIR SOLUTIONS</div>
+        <div class="footer__links">
+          <a href="index.html">Home</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="intake.html">Intake</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
