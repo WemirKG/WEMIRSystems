@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>WEMIR SOLUTIONS — Intake</title>
+  <meta name="description" content="Quick intake for WEMIR SOLUTIONS website upgrades and AI automation integrations." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <!-- Top Nav (matches your site) -->
+  <header class="topbar">
+    <div class="container topbar__inner">
+      <a class="brand" href="index.html" aria-label="WEMIR SOLUTIONS Home">
+        <span class="brand__mark" aria-hidden="true">⟡</span>
+        <span class="brand__text">WEMIR <em>SOLUTIONS</em></span>
+      </a>
+
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="pricing.html">Pricing</a>
+        <a href="demos.html">Demos</a>
+        <a href="intake.html" class="btn btn--ghost" aria-current="page">Intake</a>
+        <a href="about.html">About</a>
+        <a href="terms.html">Terms</a>
+      </nav>
+
+      <div class="topbar__actions">
+        <button class="iconbtn" id="toggleFx" type="button" aria-pressed="true" title="Toggle effects">FX</button>
+        <button class="iconbtn" id="toggleTheme" type="button" aria-pressed="false" title="Toggle theme">◐</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="section">
+      <div class="container">
+        <div class="section__head">
+          <h1>Quick Intake</h1>
+          <p class="muted">
+            Built for vendor events: fast fields, big buttons, offline-friendly (saves locally). You can download or email the brief.
+          </p>
+        </div>
+
+        <div class="grid intakeGrid">
+          <!-- FORM -->
+          <div class="card">
+            <form id="eventIntakeForm" class="form">
+              <div class="form__row">
+                <label class="field">
+                  <span>Full name <span class="req">*</span></span>
+                  <input name="name" autocomplete="name" required placeholder="Jane Doe" />
+                </label>
+
+                <label class="field">
+                  <span>Business / Brand</span>
+                  <input name="business" autocomplete="organization" placeholder="Company name (optional)" />
+                </label>
+              </div>
+
+              <div class="form__row">
+                <label class="field">
+                  <span>Phone <span class="req">*</span></span>
+                  <input name="phone" inputmode="tel" autocomplete="tel" required placeholder="(555) 555-5555" />
+                </label>
+
+                <label class="field">
+                  <span>Email</span>
+                  <input name="email" inputmode="email" autocomplete="email" placeholder="name@email.com (optional)" />
+                </label>
+              </div>
+
+              <div class="form__row">
+                <label class="field">
+                  <span>Website (if any)</span>
+                  <input name="website" inputmode="url" placeholder="https://yourwebsite.com" />
+                </label>
+
+                <label class="field">
+                  <span>Location / City</span>
+                  <input name="location" autocomplete="address-level2" placeholder="Philadelphia, PA" />
+                </label>
+              </div>
+
+              <label class="field">
+                <span>How did you find me? <span class="req">*</span></span>
+                <select name="source" required>
+                  <option value="" selected disabled>Select one</option>
+                  <option>Vendor event / booth</option>
+                  <option>Friend / referral</option>
+                  <option>Instagram</option>
+                  <option>TikTok</option>
+                  <option>YouTube</option>
+                  <option>Google search</option>
+                  <option>Business card / flyer</option>
+                  <option>Other</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>What are you looking for? (select all that apply) <span class="req">*</span></span>
+                <div class="chips" role="group" aria-label="Looking for">
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="New website" /> New website</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="Website redesign" /> Website redesign</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="AI chat assistant" /> AI chat assistant</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="Automation (forms → follow-up)" /> Automation (forms → follow-up)</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="CRM + leads system" /> CRM + leads system</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="Booking / scheduling" /> Booking / scheduling</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="Payments / checkout" /> Payments / checkout</label>
+                  <label class="chip"><input type="checkbox" name="lookingFor" value="Content / social assets" /> Content / social assets</label>
+                </div>
+                <p class="hint muted">Tip: choose the closest options; you can explain details below.</p>
+              </label>
+
+              <label class="field">
+                <span>Describe what you want (short + specific) <span class="req">*</span></span>
+                <textarea name="details" required rows="5"
+                  placeholder="Example: I want my site to capture leads, auto-reply, and book appointments. I also want a clean redesign."></textarea>
+              </label>
+
+              <div class="form__row">
+                <label class="field">
+                  <span>Timeline</span>
+                  <select name="timeline">
+                    <option value="" selected>(optional)</option>
+                    <option>ASAP (1–2 weeks)</option>
+                    <option>3–4 weeks</option>
+                    <option>1–2 months</option>
+                    <option>Just exploring</option>
+                  </select>
+                </label>
+
+                <label class="field">
+                  <span>Tier interest</span>
+                  <select name="tier">
+                    <option value="" selected>(optional)</option>
+                    <option>Basic Automation ($150)</option>
+                    <option>Standard Automation ($350)</option>
+                    <option>Advanced Automation ($555)</option>
+                    <option>Fully Automated ($1,500)</option>
+                    <option>Not sure (recommend)</option>
+                  </select>
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Best time to contact</span>
+                <select name="bestTime">
+                  <option value="" selected>(optional)</option>
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Evening</option>
+                  <option>Text me anytime</option>
+                </select>
+              </label>
+
+              <label class="field">
+                <span>Notes (anything else)</span>
+                <textarea name="notes" rows="3" placeholder="Anything important? Budget limits, must-have features, etc."></textarea>
+              </label>
+
+              <label class="checkline">
+                <input type="checkbox" name="consent" required />
+                <span>
+                  I agree to be contacted by WEMIR SOLUTIONS about this request and I accept the
+                  <a href="terms.html">Terms of Use</a>.
+                </span>
+              </label>
+
+              <div class="form__cta">
+                <button class="btn btn--primary" type="submit">Save intake</button>
+                <button class="btn btn--ghost" id="clearDraft" type="button">Clear</button>
+              </div>
+
+              <p class="note">
+                This page can work offline. It saves your last intake on this device until you download/email it.
+              </p>
+            </form>
+          </div>
+
+          <!-- OUTPUT / ACTIONS -->
+          <aside class="card">
+            <div class="asideHead">
+              <div class="tag">Output</div>
+              <h2 class="h3">Download or email the intake</h2>
+              <p class="muted">After you “Save intake,” use the buttons below.</p>
+            </div>
+
+            <div class="stack">
+              <button class="btn btn--primary" id="downloadIntake" type="button" disabled>Download intake (.txt)</button>
+              <a class="btn btn--ghost" id="emailIntake" aria-disabled="true" href="#">Email intake</a>
+              <button class="btn btn--ghost" id="copyIntake" type="button" disabled>Copy to clipboard</button>
+            </div>
+
+            <hr class="sep" />
+
+            <div class="muted small">
+              <p><strong>Vendor-event tip:</strong> after saving, download the .txt and keep it in a folder named by event/date.</p>
+              <p><strong>Privacy:</strong> no data is sent to a server from this static GitHub page.</p>
+            </div>
+
+            <div class="card card--sub">
+              <h3 class="h4">Your pitch (quick)</h3>
+              <p class="muted">
+                “I upgrade websites with AI and automation—lead capture, follow-up, booking, and an AI assistant—so your site works like a system.”
+              </p>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container footer__grid">
+        <div>
+          <div class="brand brand--foot">
+            <span class="brand__mark" aria-hidden="true">⟡</span>
+            <span class="brand__text">WEMIR <em>SOLUTIONS</em></span>
+          </div>
+          <p class="muted">Matrix-inspired AI upgrades and automation systems for modern websites.</p>
+        </div>
+
+        <div class="footer__links" aria-label="Footer links">
+          <a href="pricing.html">Pricing</a>
+          <a href="demos.html">Demos</a>
+          <a href="intake.html">Intake</a>
+          <a href="about.html">About</a>
+          <a href="terms.html">Terms</a>
+        </div>
+
+        <div class="footer__fine">
+          <span class="muted">© <span id="year"></span> WEMIR SOLUTIONS</span>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
