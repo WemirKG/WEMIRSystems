@@ -902,3 +902,174 @@
     ctx.closePath();
   }
 })();
+  /* ---------------------------
+     EVENT INTAKE (vendor page)
+  ----------------------------*/
+  const eventForm = $("#eventIntakeForm");
+  const dlIntake = $("#downloadIntake");
+  const emailIntake = $("#emailIntake");
+  const copyIntake = $("#copyIntake");
+  const clearDraft = $("#clearDraft");
+
+  function buildEventIntakeText(payload) {
+    const date = new Date().toISOString().slice(0, 10);
+    const lookingFor = (payload.lookingFor && payload.lookingFor.length)
+      ? payload.lookingFor.join(", ")
+      : "(not provided)";
+
+    return [
+      "WEMIR SOLUTIONS — EVENT INTAKE",
+      "===============================",
+      `Date: ${date}`,
+      "",
+      `Name: ${payload.name || "(not provided)"}`,
+      `Business: ${payload.business || "(not provided)"}`,
+      `Phone: ${payload.phone || "(not provided)"}`,
+      `Email: ${payload.email || "(not provided)"}`,
+      `Website: ${payload.website || "(not provided)"}`,
+      `Location: ${payload.location || "(not provided)"}`,
+      "",
+      `How they found us: ${payload.source || "(not provided)"}`,
+      `Looking for: ${lookingFor}`,
+      `Timeline: ${payload.timeline || "(not provided)"}`,
+      `Tier interest: ${payload.tier || "(not provided)"}`,
+      `Best time to contact: ${payload.bestTime || "(not provided)"}`,
+      "",
+      "REQUEST DETAILS",
+      "---------------",
+      `${payload.details || "(not provided)"}`,
+      "",
+      "NOTES",
+      "-----",
+      `${payload.notes || "(not provided)"}`,
+      "",
+      "NEXT STEPS (WEMIR)",
+      "------------------",
+      "1) Confirm scope + target outcome.",
+      "2) Recommend tier + tool stack.",
+      "3) Provide timeline + deliverables.",
+      ""
+    ].join("\n");
+  }
+
+  function mailtoForIntake(text) {
+    const subject = encodeURIComponent("WEMIR SOLUTIONS — Event Intake");
+    const body = encodeURIComponent(text.slice(0, 8000));
+    return `mailto:?subject=${subject}&body=${body}`;
+  }
+
+  function setIntakeActionsEnabled(enabled, text="") {
+    if (dlIntake) dlIntake.disabled = !enabled;
+    if (copyIntake) copyIntake.disabled = !enabled;
+    if (emailIntake) {
+      emailIntake.setAttribute("aria-disabled", enabled ? "false" : "true");
+      emailIntake.href = enabled ? mailtoForIntake(text) : "#";
+    }
+  }
+
+  function readEventFormData(form) {
+    const fd = new FormData(form);
+    const lookingFor = fd.getAll("lookingFor").map(String);
+
+    return {
+      name: String(fd.get("name") || "").trim(),
+      business: String(fd.get("business") || "").trim(),
+      phone: String(fd.get("phone") || "").trim(),
+      email: String(fd.get("email") || "").trim(),
+      website: String(fd.get("website") || "").trim(),
+      location: String(fd.get("location") || "").trim(),
+      source: String(fd.get("source") || "").trim(),
+      lookingFor,
+      details: String(fd.get("details") || "").trim(),
+      timeline: String(fd.get("timeline") || "").trim(),
+      tier: String(fd.get("tier") || "").trim(),
+      bestTime: String(fd.get("bestTime") || "").trim(),
+      notes: String(fd.get("notes") || "").trim(),
+    };
+  }
+
+  // Restore last draft (device-local)
+  const lastEventDraft = localStorage.getItem("wemir_event_intake");
+  if (eventForm && lastEventDraft) {
+    try {
+      const obj = JSON.parse(lastEventDraft);
+      // basic fields
+      ["name","business","phone","email","website","location","details","notes"].forEach(k => {
+        const el = eventForm.elements?.[k];
+        if (el && obj[k]) el.value = obj[k];
+      });
+      ["source","timeline","tier","bestTime"].forEach(k => {
+        const el = eventForm.elements?.[k];
+        if (el && obj[k]) el.value = obj[k];
+      });
+      // checkboxes
+      if (Array.isArray(obj.lookingFor)) {
+        obj.lookingFor.forEach(v => {
+          const cb = eventForm.querySelector(`input[type="checkbox"][name="lookingFor"][value="${v.replace(/["\\]/g,'\\$&')}"]`);
+          if (cb) cb.checked = true;
+        });
+      }
+    } catch { /* ignore */ }
+  }
+
+  // Restore last intake text if it exists
+  const lastEventText = localStorage.getItem("wemir_event_intake_text") || "";
+  if (lastEventText) setIntakeActionsEnabled(true, lastEventText);
+
+  if (eventForm) {
+    eventForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const payload = readEventFormData(eventForm);
+
+      // minimal validation beyond required attrs
+      if (!payload.name || !payload.phone || !payload.source || !payload.details) {
+        alert("Please complete the required fields: Name, Phone, How you found us, and Describe what you want.");
+        return;
+      }
+      if (!payload.lookingFor.length) {
+        alert("Please select at least one option under “What are you looking for?”");
+        return;
+      }
+
+      const text = buildEventIntakeText(payload);
+      localStorage.setItem("wemir_event_intake", JSON.stringify(payload));
+      localStorage.setItem("wemir_event_intake_text", text);
+
+      setIntakeActionsEnabled(true, text);
+      alert("Intake saved. You can download, email, or copy it now.");
+    });
+  }
+
+  if (dlIntake) {
+    dlIntake.addEventListener("click", () => {
+      const text = localStorage.getItem("wemir_event_intake_text") || "";
+      if (!text) return;
+      downloadText("WEMIR_Event_Intake.txt", text);
+    });
+  }
+
+  if (copyIntake) {
+    copyIntake.addEventListener("click", async () => {
+      const text = localStorage.getItem("wemir_event_intake_text") || "";
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert("Copied to clipboard.");
+      } catch {
+        alert("Copy failed. Use Download instead.");
+      }
+    });
+  }
+
+  if (clearDraft) {
+    clearDraft.addEventListener("click", () => {
+      if (!eventForm) return;
+      if (!confirm("Clear this intake draft on this device?")) return;
+      eventForm.reset();
+      // clear checkboxes manually (reset should handle, but keep safe)
+      eventForm.querySelectorAll('input[type="checkbox"][name="lookingFor"]').forEach(cb => cb.checked = false);
+      localStorage.removeItem("wemir_event_intake");
+      localStorage.removeItem("wemir_event_intake_text");
+      setIntakeActionsEnabled(false);
+    });
+  }
